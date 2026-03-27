@@ -9,11 +9,14 @@
 }
 
 [id^="cs-hero-box-"] .window-header {
-  background: var(--cs-hero-box-bg-primary);
   border: none;
   position: relative;
   display: flex;
   flex-direction: row-reverse;
+}
+
+[theme="dark"] [id^="cs-hero-box-"] .window-header {
+  background: var(--cs-hero-box-bg-primary);
 }
 
 /* centered title sitting behind the header controls */
@@ -24,10 +27,13 @@
   text-align: center;
   pointer-events: none;
   background: transparent;
-  color: var(--cs-hero-box-text-primary);
   font-size: var(--cs-hero-box-font-size-xl);
   margin: 0;
   padding: 0;
+}
+
+[theme="dark"] [id^="cs-hero-box-"] .window-header {
+  color: var(--cs-hero-box-text-primary);
 }
 
 /* make sure header buttons sit above the title */
@@ -38,6 +44,7 @@
 }
 
 [id^="cs-hero-box-"] .window-content {
+  padding-block-start: 0;
   background: var(--cs-hero-box-bg-primary);
 }
 
