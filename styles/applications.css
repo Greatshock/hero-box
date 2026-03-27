@@ -232,9 +232,6 @@
 /* ========================================
    data manager — the main beast
    ======================================== */
-#cs-hero-box-data-manager .window-content {
-  padding-block-start: 0;
-}
 
 /* hide the default title, we use tabs instead */
 .cs-hero-box-data-manager .window-header {
@@ -971,10 +968,6 @@
    image import dialog
    ======================================== */
 
-#cs-hero-box-image-import .window-content {
-  padding-block-start: 0;
-}
-
 .cs-hero-box-image-import {
   padding: var(--cs-hero-box-spacing-sm);
   background: var(--cs-hero-box-bg-primary);
@@ -1041,9 +1034,6 @@
 /* ========================================
    editor — image/name/tag editing dialog
    ======================================== */
-#cs-hero-box-editor .window-content {
-  padding-block-start: 0;
-}
 
 .cs-hero-box-editor {
   display: flex;

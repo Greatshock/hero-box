@@ -75,7 +75,12 @@
                 </div>
                 <div class="cs-hero-box-data-manager__tag-group-content">
                   {{#each tags}}
-                    <button type="button" class="cs-hero-box-data-manager__tag {{#if isActive}}active{{/if}}" data-action="toggleTag" data-tag="{{id}}" {{#if isTypeFilter}}data-type-filter="true"{{/if}} {{#if isCategoryFilter}}data-category-filter="true"{{/if}}>
+                    <button type="button" class="cs-hero-box-data-manager__tag
+                      {{#if isActive}}active{{/if}}" data-action="toggleTag" data-tag="{{id}}"
+                      {{#if isTypeFilter}}data-type-filter="true"{{/if}}
+                      {{#if isCategoryFilter}}data-category-filter="true"{{/if}}
+                      {{#if tooltip}}data-tooltip="{{tooltip}}"{{/if}}
+                    >
                       <span class="cs-hero-box-data-manager__tag-name">{{label}}</span>
                       <span class="cs-hero-box-data-manager__tag-count">{{count}}</span>
                     </button>
