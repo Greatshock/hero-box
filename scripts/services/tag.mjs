@@ -1,7 +1,7 @@
 import { MODULE_ID, FLAGS } from '../constants/index.mjs';
 import { TAG_CATEGORY, GENDER_TAGS, AGE_TAGS } from '../constants/tags.mjs';
 import { logger, getFlag } from '../utils/index.mjs';
-import { getSourcePages } from '../utils/source.mjs';
+import { getSourcePages, parseSourceId, SOURCE_TYPE } from '../utils/source.mjs';
 import { source } from './source.mjs';
 
 const BUILTIN_TAGS = [
@@ -20,6 +20,7 @@ class TagService {
   #subracesByParent = new Map();
   #tagsByCategory = new Map();
   #labelCache = new Map();
+  #sourceLocalizationIdCache = new Map();
   #initialized = false;
 
   // load all tags from configured sources
@@ -47,6 +48,7 @@ class TagService {
     this.#subracesByParent.clear();
     this.#tagsByCategory.clear();
     this.#labelCache.clear();
+    this.#sourceLocalizationIdCache.clear();
     this.#initialized = false;
     await this.initialize();
   }
@@ -138,21 +140,52 @@ class TagService {
     return (this.#subracesByParent.get(raceId)?.length ?? 0) > 0;
   }
 
-  // try locale key first, fall back to stored label, then raw id
+  // resolve label by source localization key, then core module key, then tag id
   #resolveLabel(tagId) {
-    const localeKey = `cs-hero-box.tags.${tagId}`;
-    const localized = game.i18n.localize(localeKey);
+    const tagData = this.#tags.get(tagId);
+    const sourceLocalizationId = this.#resolveSourceLocalizationId(tagData);
 
-    if (localized !== localeKey) {
-      return localized;
+    if (sourceLocalizationId) {
+      const sourceLocaleKey = `${sourceLocalizationId}.tags.${tagId}`;
+      const sourceLocalized = game.i18n.localize(sourceLocaleKey);
+      if (sourceLocalized !== sourceLocaleKey) {
+        return sourceLocalized;
+      }
     }
 
-    const tagData = this.#tags.get(tagId);
-    if (tagData) {
-      return tagData.label ?? tagId;
+    const moduleLocaleKey = `${MODULE_ID}.tags.${tagId}`;
+    const moduleLocalized = game.i18n.localize(moduleLocaleKey);
+    if (moduleLocalized !== moduleLocaleKey) {
+      return moduleLocalized;
     }
 
     return tagId;
+  }
+
+  // determine source id used as i18n namespace for `${sourceId}.tags.${tagId}`
+  #resolveSourceLocalizationId(tagData) {
+    if (!tagData) return null;
+
+    const sourceId = tagData.sourceId;
+    if (!sourceId) return null;
+
+    if (this.#sourceLocalizationIdCache.has(sourceId)) {
+      return this.#sourceLocalizationIdCache.get(sourceId);
+    }
+
+    let resolved = null;
+    try {
+      const parsed = parseSourceId(sourceId);
+
+      if (parsed.type === SOURCE_TYPE.COMPENDIUM && parsed.packId) {
+        resolved = game.packs.get(parsed.packId).metadata.packageName;
+      }
+    } catch {
+      resolved = null;
+    }
+
+    this.#sourceLocalizationIdCache.set(sourceId, resolved);
+    return resolved;
   }
 
   // pre-cache all labels for faster lookups
