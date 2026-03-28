@@ -1,7 +1,7 @@
 const moduleId = 'cs-hero-box';
-// TODO: change to the actual changelog url
-const CHANGELOG_EN_URL = 'https://raw.githubusercontent.com/help/cs-hero-box/main/CHANGELOG.en.md';
-const CHANGELOG_RU_URL = 'https://raw.githubusercontent.com/help/cs-hero-box/main/CHANGELOG.ru.md';
+
+const CHANGELOG_EN_URL = 'https://raw.githubusercontent.com/cosmosaurs/hero-box/refs/heads/main/CHANGELOG.en.md';
+const CHANGELOG_RU_URL = 'https://raw.githubusercontent.com/cosmosaurs/hero-box/refs/heads/main/CHANGELOG.ru.md';
 
 function isRussianLocale(lang) {
   return typeof lang === 'string' && lang.toLowerCase().startsWith('ru');
