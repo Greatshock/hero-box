@@ -545,6 +545,7 @@ export class Editor extends BaseFormApplication {
       races: selectedRaces,
       subraces: selectedSubraces,
       names,
+      tags: null,
     };
 
     const pageName = data.name?.trim() || this.#page?.name || `NameSet-${foundry.utils.randomID(6)}`;

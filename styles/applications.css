@@ -875,11 +875,12 @@
 }
 
 .cs-hero-box-data-manager__tag-source {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: var(--cs-hero-box-font-size-sm);
   color: var(--cs-hero-box-text-muted);
-  display: flex;
-  align-items: center;
-  gap: var(--cs-hero-box-spacing-xs);
 }
 
 .cs-hero-box-data-manager__tag-actions {
