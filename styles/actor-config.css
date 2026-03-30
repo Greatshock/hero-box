@@ -430,6 +430,7 @@
   height: 36px;
   border-radius: var(--cs-hero-box-radius-md);
   object-fit: cover;
+  object-position: top;
   border: 1px solid var(--cs-hero-box-border-color);
 }
 
@@ -512,6 +513,7 @@
   height: 60px;
   border-radius: var(--cs-hero-box-radius-sm);
   object-fit: cover;
+  object-position: top;
 }
 
 .cs-hero-box-form__selected-image-name {

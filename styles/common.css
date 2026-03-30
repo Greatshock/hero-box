@@ -16,6 +16,7 @@
   width: var(--cs-hero-box-preview-size-sm);
   height: var(--cs-hero-box-preview-size-sm);
   object-fit: cover;
+  object-position: top;
   border-radius: var(--cs-hero-box-radius-md);
   border: 1px solid var(--cs-hero-box-border-color);
 }
